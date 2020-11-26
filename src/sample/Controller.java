@@ -1,0 +1,117 @@
+package sample;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.ComboBox;
+import javafx.scene.image.Image;
+import javafx.stage.Stage;
+
+import java.awt.*;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.URL;
+
+public class Controller {
+
+    private MessageHandler getSelectMessage = new MessageHandler();
+    private FileGenerate getFileGenerate = new FileGenerate();
+
+    private static String NAME_APPLICATION = "Заметки к Парам";
+    private static int WIDTH = 390;
+    private static int HEIGHT = 490;
+
+    @FXML
+    private ComboBox<String> selectGroup;
+
+    @FXML
+    private void initialize() {
+        ObservableList<String> groupList = FXCollections.observableArrayList("ИП-911", "ИП-912", "ИП-913", "ИП-914", "ИП-915", "ИП-916", "ИП-917");
+        selectGroup.setItems(groupList);
+        getFileGenerate.notePathGenerate();
+        getFileGenerate.noteGenerate();
+        getFileGenerate.versionPathGenerate();
+        getFileGenerate.versionGenerate();
+        getFileGenerate.logPathGenerate();
+        getFileGenerate.logGenerate();
+        getFileGenerate.groupPathGenerate();
+
+    }
+
+    @FXML
+    private void startNoteWindow() {
+        try {
+            Stage stage = new Stage();
+            Image icon = new Image(getClass().getResourceAsStream("/asset/icon.png"));//создает иконку с ссылкой на картинку
+            stage.getIcons().add(icon);//заменяем стандартную иконку на новую
+            Parent root = FXMLLoader.load(getClass().getResource("noteWindow.fxml"));
+            stage.setResizable(false);//отключаем ресайз окна
+            stage.setTitle(NAME_APPLICATION);
+            stage.setScene(new Scene(root, WIDTH, HEIGHT));
+            stage.show();
+        } catch (IOException e) {
+            getSelectMessage.selectMessage(2, e.toString());
+        }
+    }
+
+    @FXML
+    private void getGroup() {
+        String output = selectGroup.getSelectionModel().getSelectedItem();
+        switch (output) {
+            case "ИП-911":
+                System.out.println("1");
+                break;
+            case "ИП-912":
+                System.out.println("2");
+                break;
+            case "ИП-913":
+                System.out.println("3");
+                break;
+            case "ИП-914":
+                System.out.println("4");
+                break;
+            case "ИП-915":
+                System.out.println("5");
+                break;
+            case "ИП-916":
+                System.out.println("6");
+                break;
+            case "ИП-917":
+                System.out.println("7");
+                break;
+        }
+    }
+
+    @FXML
+    private void setTimetable() {
+        getSelectMessage.selectMessage(3, "1 Пара * 08:00 - 09:35 * 15 мин\n" +
+                "2 Пара * 09:50 - 11:25 * 15 мин\n" +
+                "3 Пара * 11:40 - 13:15 * 30 мин\n" +
+                "4 Пара * 13:45 - 15:20 * 15 мин\n" +
+                "5 Пара * 15:35 - 17:10 * 15 мин\n" +
+                "6 Пара * 17:25 - 19:00 * последняя пара");
+    }
+
+    @FXML
+    private void openLinkEios() {
+        startBrowseLink("https://eios.sibsutis.ru");
+    }
+
+    @FXML
+    private void openLinkCyberEios() {
+        startBrowseLink("http://cyber.sibsutis.ru");
+    }
+
+    private void startBrowseLink(String setLink) {
+        try {
+            Desktop.getDesktop().browse(new URL(setLink).toURI());
+        } catch (IOException e) {
+            getSelectMessage.selectMessage(2, e.toString());
+        } catch (URISyntaxException e) {
+            getSelectMessage.selectMessage(2, e.toString());
+        }
+    }
+}
