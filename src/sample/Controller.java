@@ -31,6 +31,11 @@ public class Controller {
     private void initialize() {
         ObservableList<String> groupList = FXCollections.observableArrayList("ИП-911", "ИП-912", "ИП-913", "ИП-914", "ИП-915", "ИП-916", "ИП-917");
         selectGroup.setItems(groupList);
+        generatePathAndFiles();
+
+    }
+
+    private void generatePathAndFiles(){
         getFileGenerate.notePathGenerate();
         getFileGenerate.noteGenerate();
         getFileGenerate.versionPathGenerate();
@@ -38,7 +43,6 @@ public class Controller {
         getFileGenerate.logPathGenerate();
         getFileGenerate.logGenerate();
         getFileGenerate.groupPathGenerate();
-
     }
 
     @FXML

@@ -7,6 +7,8 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -74,7 +76,18 @@
                   </Tab>
                   <Tab text=" Настройки ">
                      <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <Button layoutX="22.0" layoutY="245.0" mnemonicParsing="false" text="Перегенерировать файлы" />
+                              <Button layoutX="455.0" layoutY="245.0" mnemonicParsing="false" text="открыть лог" />
+                              <Button layoutX="228.0" layoutY="245.0" mnemonicParsing="false" text="Проверка оповещения" />
+                              <Button layoutX="37.0" layoutY="133.0" mnemonicParsing="false" text="Скачать обновление" />
+                              <TextArea layoutX="14.0" layoutY="280.0" prefHeight="138.0" prefWidth="533.0" />
+                              <Button layoutX="37.0" layoutY="184.0" mnemonicParsing="false" text="Проект на гите" />
+                              <Button layoutX="445.0" layoutY="205.0" mnemonicParsing="false" text="Обратная связь" />
+                              <TextField layoutX="371.0" layoutY="37.0" />
+                              <TextArea layoutX="371.0" layoutY="70.0" prefHeight="127.0" prefWidth="150.0" />
+                           </children></AnchorPane>
                      </content>
                   </Tab>
               </tabs>
