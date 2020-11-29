@@ -9,16 +9,25 @@ import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import javafx.scene.control.Label;
 
 import java.awt.*;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class Controller {
 
     private MessageHandler getSelectMessage = new MessageHandler();
     private FileGenerate getFileGenerate = new FileGenerate();
+    private TimeAndDate timeAndDate = new TimeAndDate() {
+        @Override
+        protected Date getTimeAndDate() {
+            return super.getTimeAndDate();
+        }
+    };
 
     private static String NAME_APPLICATION = "Заметки к Парам";
     private static int WIDTH = 390;
@@ -28,12 +37,21 @@ public class Controller {
     private ComboBox<String> selectGroup;
 
     @FXML
+    private Label setToDay;
+
+    @FXML
     private void initialize() {
         ObservableList<String> groupList = FXCollections.observableArrayList("ИП-911", "ИП-912", "ИП-913", "ИП-914", "ИП-915", "ИП-916", "ИП-917");
         selectGroup.setItems(groupList);
         generatePathAndFiles();
-
+        setToDayDate();
     }
+
+    private void setToDayDate(){
+        SimpleDateFormat formatForDateNow = new SimpleDateFormat("dd.MM.yyyy");
+        setToDay.setText("Сегодня " + formatForDateNow.format(timeAndDate.getTimeAndDate()));
+    }
+
 
     private void generatePathAndFiles(){
         getFileGenerate.notePathGenerate();

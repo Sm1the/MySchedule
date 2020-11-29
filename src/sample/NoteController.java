@@ -23,11 +23,6 @@ public class NoteController {
     };
 
     private String noteText;
-    private static String layingOne = "\n################################################";
-    private static String layingTwo = "\n/////////////////////////////////////////////////////////////////////////";
-    private static String layingThree = "\n+++++++++++++++++++++++++++++++++++++++++";
-    private static String layingFour = "\n-----------------------------------------------------------------------";
-    private static String layingFive = "\n=========================================";
 
     @FXML
     private TextArea noteTextArea;
@@ -126,58 +121,5 @@ public class NoteController {
         SimpleDateFormat formatForDateNow = new SimpleDateFormat("E hh:mm:ss dd.MM.yyyy");
         noteText = noteTextArea.getText();
         noteTextArea.setText("\n" + formatForDateNow.format(timeAndDate.getTimeAndDate()) + "\n" + noteText + "\n");
-    }
-
-    @FXML
-    private void aboutNote() {
-        getSelectMessage.selectMessage(3, "123");
-    }
-
-    @FXML
-    private void writeKeyFind() {
-        getNoteText();
-        noteTextArea.setText("@" + noteText);
-    }
-
-    @FXML
-    private void writeRoundBrackets() {
-        getNoteText();
-        noteTextArea.setText("===============(  )===============\n" + noteText);
-    }
-
-    @FXML
-    private void writeSquareBrackets() {
-        getNoteText();
-        noteTextArea.setText("===============[  ]===============\n" + noteText);
-    }
-
-    @FXML
-    private void writeLayingOne() {
-        getNoteText();
-        noteTextArea.setText(layingOne + "\n" + noteText);
-    }
-
-    @FXML
-    private void writeLayingTwo() {
-        getNoteText();
-        noteTextArea.setText(layingTwo + "\n" + noteText);
-    }
-
-    @FXML
-    private void writeLayingThree() {
-        getNoteText();
-        noteTextArea.setText(layingThree + "\n" + noteText);
-    }
-
-    @FXML
-    private void writeLayingFour() {
-        getNoteText();
-        noteTextArea.setText(layingFour + "\n" + noteText);
-    }
-
-    @FXML
-    private void writeLayingFive() {
-        getNoteText();
-        noteTextArea.setText(layingFive + "\n" + noteText);
     }
 }
