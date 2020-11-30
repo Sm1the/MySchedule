@@ -125,7 +125,7 @@
             <Button layoutX="45.0" layoutY="420.0" mnemonicParsing="false" onAction="#openLinkCyberEios" prefHeight="25.0" prefWidth="150.0" text="Cyber.Sibsutis" />
             <Button layoutX="45.0" layoutY="255.0" mnemonicParsing="false" onAction="#startNoteWindow" prefHeight="25.0" prefWidth="150.0" text="Заметки" />
             <Separator layoutX="-7.0" layoutY="290.0" prefHeight="12.0" prefWidth="248.0" />
-            <Label fx:id="setToDay" alignment="TOP_CENTER" layoutX="45.0" layoutY="155.0" prefHeight="17.0" prefWidth="150.0" text="Сегодня 11.11.2020" textAlignment="CENTER" />
+            <Label fx:id="setToDay" alignment="TOP_CENTER" layoutX="45.0" layoutY="155.0" prefHeight="17.0" prefWidth="150.0" textAlignment="CENTER" />
          </children>
       </Pane>
    </children>

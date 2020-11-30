@@ -76,4 +76,21 @@ public class FileGenerate {
         }
     }
 
+    protected void settingPathGenerate() {
+        try {
+            Files.createDirectories(Paths.get(fileWay + "/setting"));
+        } catch (IOException e) {
+            getSelectMessage.selectMessage(2, e.toString());
+        }
+    }
+
+    protected void settingGenerate() {
+        File file = new File(fileWay + "/setting/setting.dat");
+        try {
+            file.createNewFile();
+        } catch (IOException e) {
+            getSelectMessage.selectMessage(2, e.toString());
+        }
+    }
+
 }

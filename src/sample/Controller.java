@@ -56,11 +56,17 @@ public class Controller {
     private void generatePathAndFiles(){
         getFileGenerate.notePathGenerate();
         getFileGenerate.noteGenerate();
+
         getFileGenerate.versionPathGenerate();
         getFileGenerate.versionGenerate();
+
         getFileGenerate.logPathGenerate();
         getFileGenerate.logGenerate();
+
         getFileGenerate.groupPathGenerate();
+
+        getFileGenerate.settingPathGenerate();
+        getFileGenerate.settingGenerate();
     }
 
     @FXML
