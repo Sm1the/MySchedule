@@ -10,6 +10,10 @@ public class FileGenerate {
     private MessageHandler getSelectMessage = new MessageHandler();
     protected String fileWay = new File("").getAbsolutePath();
 
+    protected void reGenerateFilesAndPaths(){
+
+    }
+
     protected void notePathGenerate() {
         try {
             Files.createDirectories(Paths.get(fileWay + "/note"));

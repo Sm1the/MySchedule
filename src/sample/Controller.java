@@ -7,11 +7,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import javafx.scene.control.Label;
 
 import java.awt.*;
+import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -47,13 +48,13 @@ public class Controller {
         setToDayDate();
     }
 
-    private void setToDayDate(){
+    private void setToDayDate() {
         SimpleDateFormat formatForDateNow = new SimpleDateFormat("dd.MM.yyyy");
         setToDay.setText("Сегодня " + formatForDateNow.format(timeAndDate.getTimeAndDate()));
     }
 
 
-    private void generatePathAndFiles(){
+    private void generatePathAndFiles() {
         getFileGenerate.notePathGenerate();
         getFileGenerate.noteGenerate();
 
@@ -133,6 +134,11 @@ public class Controller {
         startBrowseLink("http://cyber.sibsutis.ru");
     }
 
+    @FXML
+    void openProjectOnGitHub() {
+        startBrowseLink("https://github.com/Sm1the/MySchedule.git");
+    }
+
     private void startBrowseLink(String setLink) {
         try {
             Desktop.getDesktop().browse(new URL(setLink).toURI());
@@ -142,4 +148,53 @@ public class Controller {
             getSelectMessage.selectMessage(2, e.toString());
         }
     }
+
+    @FXML
+    void checkLogFunction() {
+        getSelectMessage.selectMessage(1, "Данная функция еще находиться на стадии разработки!");
+    }
+
+    @FXML
+    void checkNotification() {
+        getSelectMessage.selectMessage(3,"Тест 3");
+        getSelectMessage.selectMessage(2,"Тест 2");
+        getSelectMessage.selectMessage(1,"Тест 1");
+    }
+
+    @FXML
+    void checkUpdate() {
+        getSelectMessage.selectMessage(1, "Данная функция еще находиться на стадии разработки!");
+    }
+
+    @FXML
+    void clearNote() {
+        File file = new File(getFileGenerate.fileWay + "/note/note.dat");
+        file.delete();
+        try {
+            file.createNewFile();
+        } catch (IOException e) {
+            getSelectMessage.selectMessage(2, e.toString());
+        }
+        getSelectMessage.selectMessage(3, "Заметки очищены!");
+    }
+
+    @FXML
+    void openLogFile() {
+        String logFilePath = getFileGenerate.fileWay + "/log/log.dat";
+        try {
+            Process process = Runtime.getRuntime().exec("cmd /c notepad.exe " + logFilePath);
+            process.waitFor();
+        } catch (IOException e) {
+            getSelectMessage.selectMessage(2, e.toString());
+        } catch (InterruptedException e) {
+            getSelectMessage.selectMessage(2, e.toString());
+        }
+    }
+
+    @FXML
+    void reGenerateFiles() {
+        generatePathAndFiles();
+        getSelectMessage.selectMessage(1, "Все файлы были пересозданы! Перезапустите приложение!");
+    }
+
 }

@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 
 import java.io.*;
 import java.text.SimpleDateFormat;
@@ -26,6 +27,9 @@ public class NoteController {
 
     @FXML
     private TextArea noteTextArea;
+
+    @FXML
+    private TextField keyWord;
 
     @FXML
     private ComboBox<String> selectLesson;
@@ -121,5 +125,20 @@ public class NoteController {
         SimpleDateFormat formatForDateNow = new SimpleDateFormat("E hh:mm:ss dd.MM.yyyy");
         noteText = noteTextArea.getText();
         noteTextArea.setText("\n" + formatForDateNow.format(timeAndDate.getTimeAndDate()) + "\n" + noteText + "\n");
+    }
+
+    @FXML
+    private void findWords(){
+        if (keyWord.getText() != null && !keyWord.getText().isEmpty()) {
+            int index = noteTextArea.getText().indexOf(keyWord.getText());
+            if (index == -1) {
+                getSelectMessage.selectMessage(1, "Искомого слова нету в этом текста!");
+            } else {
+                //  errorText.setText("Found");
+                noteTextArea.selectRange(index, index + keyWord.getLength());
+            }
+        } else {
+            getSelectMessage.selectMessage(1, "Слово поиска не введено!");
+        }
     }
 }
