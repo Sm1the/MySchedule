@@ -29,6 +29,9 @@ public class Controller {
             return super.getTimeAndDate();
         }
     };
+    private LogMessage logMessage = new LogMessage();
+    private Updater updater = new Updater();
+    private FilePath filePath = new FilePath();
 
     private static String NAME_APPLICATION = "Заметки к Парам";
     private static int WIDTH = 390;
@@ -41,16 +44,24 @@ public class Controller {
     private Label setToDay;
 
     @FXML
+    private Label versionApp;
+
+    @FXML
     private void initialize() {
         ObservableList<String> groupList = FXCollections.observableArrayList("ИП-911", "ИП-912", "ИП-913", "ИП-914", "ИП-915", "ИП-916", "ИП-917");
         selectGroup.setItems(groupList);
         generatePathAndFiles();
         setToDayDate();
+        setVersionApp();
     }
 
     private void setToDayDate() {
         SimpleDateFormat formatForDateNow = new SimpleDateFormat("dd.MM.yyyy");
         setToDay.setText("Сегодня " + formatForDateNow.format(timeAndDate.getTimeAndDate()));
+    }
+
+    private void setVersionApp() {
+        versionApp.setText("Версия : " + updater.getAppVersion());
     }
 
 
@@ -61,8 +72,8 @@ public class Controller {
         getFileGenerate.versionPathGenerate();
         getFileGenerate.versionGenerate();
 
-        getFileGenerate.logPathGenerate();
-        getFileGenerate.logGenerate();
+        logMessage.logPathGenerate();
+        logMessage.logGenerate();
 
         getFileGenerate.groupPathGenerate();
 
@@ -83,6 +94,7 @@ public class Controller {
             stage.show();
         } catch (IOException e) {
             getSelectMessage.selectMessage(2, e.toString());
+            logMessage.writeLog(e.toString());
         }
     }
 
@@ -144,21 +156,33 @@ public class Controller {
             Desktop.getDesktop().browse(new URL(setLink).toURI());
         } catch (IOException e) {
             getSelectMessage.selectMessage(2, e.toString());
+            logMessage.writeLog(e.toString());
         } catch (URISyntaxException e) {
             getSelectMessage.selectMessage(2, e.toString());
+            logMessage.writeLog(e.toString());
         }
     }
 
     @FXML
     void checkLogFunction() {
-        getSelectMessage.selectMessage(1, "Данная функция еще находиться на стадии разработки!");
+        logMessage.writeLog("Проверка функции Логирования!");
+        try {
+            Process process = Runtime.getRuntime().exec("cmd /c notepad.exe " + filePath.fileWay + "/log/log.dat");
+            process.waitFor();
+        } catch (IOException e) {
+            getSelectMessage.selectMessage(2, e.toString());
+            logMessage.writeLog(e.toString());
+        } catch (InterruptedException e) {
+            getSelectMessage.selectMessage(2, e.toString());
+            logMessage.writeLog(e.toString());
+        }
     }
 
     @FXML
     void checkNotification() {
-        getSelectMessage.selectMessage(3,"Тест 3");
-        getSelectMessage.selectMessage(2,"Тест 2");
-        getSelectMessage.selectMessage(1,"Тест 1");
+        getSelectMessage.selectMessage(3, "Тест 3");
+        getSelectMessage.selectMessage(2, "Тест 2");
+        getSelectMessage.selectMessage(1, "Тест 1");
     }
 
     @FXML
@@ -168,26 +192,29 @@ public class Controller {
 
     @FXML
     void clearNote() {
-        File file = new File(getFileGenerate.fileWay + "/note/note.dat");
+        File file = new File(filePath.fileWay + "/note/note.dat");
         file.delete();
         try {
             file.createNewFile();
         } catch (IOException e) {
             getSelectMessage.selectMessage(2, e.toString());
+            logMessage.writeLog(e.toString());
         }
         getSelectMessage.selectMessage(3, "Заметки очищены!");
+        logMessage.writeLog("Заметки очищены!");
     }
 
     @FXML
     void openLogFile() {
-        String logFilePath = getFileGenerate.fileWay + "/log/log.dat";
+        Desktop desktop = null;
+        if (Desktop.isDesktopSupported()) {
+            desktop = Desktop.getDesktop();
+        }
         try {
-            Process process = Runtime.getRuntime().exec("cmd /c notepad.exe " + logFilePath);
-            process.waitFor();
+            desktop.open(new File(filePath.fileWay + "/log/"));
         } catch (IOException e) {
             getSelectMessage.selectMessage(2, e.toString());
-        } catch (InterruptedException e) {
-            getSelectMessage.selectMessage(2, e.toString());
+            logMessage.writeLog(e.toString());
         }
     }
 
@@ -195,6 +222,6 @@ public class Controller {
     void reGenerateFiles() {
         generatePathAndFiles();
         getSelectMessage.selectMessage(1, "Все файлы были пересозданы! Перезапустите приложение!");
+        logMessage.writeLog("Все файлы были пересозданы! Перезапустите приложение!");
     }
-
 }

@@ -7,7 +7,10 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -15,13 +18,14 @@ import java.util.Date;
 public class NoteController {
 
     private MessageHandler getSelectMessage = new MessageHandler();
-    private FileGenerate fileGenerate = new FileGenerate();
     private TimeAndDate timeAndDate = new TimeAndDate() {
         @Override
         protected Date getTimeAndDate() {
             return super.getTimeAndDate();
         }
     };
+    private LogMessage logMessage = new LogMessage();
+    private FilePath filePath = new FilePath();
 
     private String noteText;
 
@@ -31,20 +35,17 @@ public class NoteController {
     @FXML
     private TextField keyWord;
 
+
+
     @FXML
     private ComboBox<String> selectLesson;
-    ObservableList<String> lessonList = FXCollections.observableArrayList("ИП-911", "ИП-912", "ИП-913", "ИП-914", "ИП-915", "ИП-916", "ИП-917");
+    ObservableList<String> lessonList = FXCollections.observableArrayList("Легкая атлетика", "Математика", "СиАОД", "Ин.Яз.", "Мат.Логика", "ИТ", "ООП","ЭЭС");
 
 
     @FXML
     private void initialize() {
         readNote();
         selectLesson.setItems(lessonList);
-    }
-
-    @FXML
-    private void findWord() {
-
     }
 
     @FXML
@@ -58,49 +59,65 @@ public class NoteController {
     }
 
     @FXML
+    private void findWords(){
+        if (keyWord.getText() != null && !keyWord.getText().isEmpty()) {
+            int index = noteTextArea.getText().toLowerCase().indexOf(keyWord.getText());
+            if (index == -1) {
+                getSelectMessage.selectMessage(1, "Искомого слова нету в этом текста!");
+                logMessage.writeLog("Искомого слова нету в этом текста!");
+            } else {
+                noteTextArea.selectRange(index, index + keyWord.getLength());
+            }
+        } else {
+            getSelectMessage.selectMessage(1, "Слово поиска не введено!");
+            logMessage.writeLog("Слово поиска не введено!");
+        }
+    }
+
+    @FXML
     private void getLesson() {
         getNoteText();
         switch (selectLesson.getSelectionModel().getSelectedItem()) {
-            case "ИП-911":
-                noteTextArea.setText("жопа \n" + noteText);
+            case "Легкая атлетика":
+                noteTextArea.setText("Легкая атлетика \n" + "Задание : \n" + noteText);
                 break;
-            case "ИП-912":
-                System.out.println("2");
+            case "Математика":
+                noteTextArea.setText("Математика \n" + "Задание : \n"+ noteText);
                 break;
-            case "ИП-913":
-                System.out.println("3");
+            case "СиАОД":
+                noteTextArea.setText("Структуры и алгоритмы обработки данных \n" + "Задание : \n" + noteText);
                 break;
-            case "ИП-914":
-                System.out.println("4");
+            case "Ин.Яз.":
+                noteTextArea.setText("Иностранный язык \n" + "Задание : \n" + noteText);
                 break;
-            case "ИП-915":
-                System.out.println("5");
+            case "Мат.Логика":
+                noteTextArea.setText("Математическая логика и теория алгоритмов \n" + "Задание : \n" + noteText);
                 break;
-            case "ИП-916":
-                System.out.println("6");
+            case "ИТ":
+                noteTextArea.setText("Интернет-технологии \n" + "Задание : \n" + noteText);
                 break;
-            case "ИП-917":
-                System.out.println("7");
+            case "ООП":
+                noteTextArea.setText("Объектно-ориентированное программирование \n" + "Задание : \n" + noteText);
+                break;
+            case "ЭЭС":
+                noteTextArea.setText("ЭЭС \n" + "Задание : \n" + noteText);
                 break;
         }
     }
 
-    private String getFilePath() {
-        fileGenerate.notePathGenerate();
-        String getWayPath = fileGenerate.fileWay;
-        return getWayPath;
-    }
+
 
     private void readNote() {
         ArrayList<String> textFile = new ArrayList<>();
         String writeTextNote = "";
-        try (BufferedReader reader = new BufferedReader(new FileReader(getFilePath() + "/note/note.dat"))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath.fileWay + "/note/note.dat"))) {
             String currentLine;
             while ((currentLine = reader.readLine()) != null) {
                 textFile.add(currentLine + "\n");
             }
         } catch (Exception e) {
             getSelectMessage.selectMessage(2, e.toString());
+            logMessage.writeLog(e.toString());
         }
         for (String word : textFile) {
             writeTextNote = writeTextNote + word;
@@ -111,11 +128,12 @@ public class NoteController {
     @FXML
     private void saveNote() {
 
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(getFilePath() + "/note/note.dat", false))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath.fileWay + "/note/note.dat", false))) {
             writer.write(noteTextArea.getText());
             writer.flush();
         } catch (Exception e) {
             getSelectMessage.selectMessage(2, e.toString());
+            logMessage.writeLog(e.toString());
         }
     }
 
@@ -125,20 +143,5 @@ public class NoteController {
         SimpleDateFormat formatForDateNow = new SimpleDateFormat("E hh:mm:ss dd.MM.yyyy");
         noteText = noteTextArea.getText();
         noteTextArea.setText("\n" + formatForDateNow.format(timeAndDate.getTimeAndDate()) + "\n" + noteText + "\n");
-    }
-
-    @FXML
-    private void findWords(){
-        if (keyWord.getText() != null && !keyWord.getText().isEmpty()) {
-            int index = noteTextArea.getText().indexOf(keyWord.getText());
-            if (index == -1) {
-                getSelectMessage.selectMessage(1, "Искомого слова нету в этом текста!");
-            } else {
-                //  errorText.setText("Found");
-                noteTextArea.selectRange(index, index + keyWord.getLength());
-            }
-        } else {
-            getSelectMessage.selectMessage(1, "Слово поиска не введено!");
-        }
     }
 }
