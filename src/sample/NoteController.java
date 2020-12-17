@@ -64,7 +64,7 @@ public class NoteController {
             int index = noteTextArea.getText().toLowerCase().indexOf(keyWord.getText());
             if (index == -1) {
                 getSelectMessage.selectMessage(1, "Искомого слова нету в этом текста!");
-                logMessage.writeLog("Искомого слова нету в этом текста!");
+                logMessage.writeLog("Искомого слова нету в этом текста!" + keyWord.getText());
             } else {
                 noteTextArea.selectRange(index, index + keyWord.getLength());
             }
