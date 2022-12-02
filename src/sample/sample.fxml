@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<GridPane alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+   <columnConstraints>
+      <ColumnConstraints />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints />
+   </rowConstraints>
+   <children>
+      <Pane prefHeight="450.0" prefWidth="800.0">
+         <children>
+            <Separator layoutX="239.0" layoutY="-8.0" orientation="VERTICAL" prefHeight="464.0" prefWidth="6.0" />
+            <TabPane fx:id="tp_Schedule" cacheShape="false" centerShape="false" layoutX="240.0" layoutY="-6.0" prefHeight="464.0" prefWidth="567.0" scaleShape="false" tabClosingPolicy="UNAVAILABLE">
+              <tabs>
+                <Tab fx:id="tp_Monday" text=" Понедельник ">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <ListView fx:id="tv_Monday" focusTraversable="false" layoutX="25.0" layoutY="30.0" prefHeight="350.0" prefWidth="500.0" />
+                           </children></AnchorPane>
+                  </content>
+                </Tab>
+                <Tab fx:id="tp_Tuesday" text=" Вторник ">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <ListView fx:id="tv_Tuesday" focusTraversable="false" layoutX="25.0" layoutY="30.0" prefHeight="350.0" prefWidth="500.0" />
+                           </children></AnchorPane>
+                  </content>
+                </Tab>
+                  <Tab fx:id="tp_Wednesday" text=" Среда ">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <ListView fx:id="tv_Wednesday" focusTraversable="false" layoutX="25.0" layoutY="30.0" prefHeight="350.0" prefWidth="500.0" />
+                           </children></AnchorPane>
+                     </content>
+                  </Tab>
+                  <Tab fx:id="tp_Thursday" text=" Четверг ">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <ListView fx:id="tv_Thursday" focusTraversable="false" layoutX="25.0" layoutY="30.0" prefHeight="350.0" prefWidth="500.0" />
+                           </children></AnchorPane>
+                     </content>
+                  </Tab>
+                  <Tab fx:id="tp_Friday" text=" Пятница ">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <ListView fx:id="tv_Friday" focusTraversable="false" layoutX="25.0" layoutY="30.0" prefHeight="350.0" prefWidth="500.0" />
+                           </children></AnchorPane>
+                     </content>
+                  </Tab>
+                  <Tab fx:id="tp_Saturday" text=" Суббота ">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <ListView fx:id="tv_Saturday" focusTraversable="false" layoutX="25.0" layoutY="30.0" prefHeight="350.0" prefWidth="500.0" />
+                           </children></AnchorPane>
+                     </content>
+                  </Tab>
+                  <Tab text=" Настройки ">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <Button layoutX="375.0" layoutY="90.0" mnemonicParsing="false" onAction="#reGenerateFiles" prefHeight="25.0" prefWidth="160.0" text="Пересоздать Файлы" />
+                              <Button layoutX="375.0" layoutY="190.0" mnemonicParsing="false" onAction="#openLogFile" prefHeight="25.0" prefWidth="160.0" text="Открыть LogFile" />
+                              <Button layoutX="375.0" layoutY="225.0" mnemonicParsing="false" onAction="#openProjectOnGitHub" prefHeight="25.0" prefWidth="160.0" text="Проект на GitHub" />
+                              <Separator layoutX="342.0" layoutY="-12.0" orientation="VERTICAL" prefHeight="450.0" prefWidth="6.0" />
+                              <Button layoutX="375.0" layoutY="55.0" mnemonicParsing="false" onAction="#clearNote" prefHeight="25.0" prefWidth="160.0" text="Очистить Заметки" />
+                              <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="75.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../asset/icon.png" />
+                                 </image>
+                              </ImageView>
+                              <Label alignment="TOP_CENTER" layoutX="130.0" layoutY="265.0" text="\@AnyPixelStudio" />
+                              <Label alignment="TOP_CENTER" layoutX="150.0" layoutY="240.0" text="\@Sm1the" />
+                              <Label alignment="TOP_CENTER" layoutX="435.0" layoutY="25.0" text="Файлы" />
+                              <Label alignment="TOP_CENTER" layoutX="432.0" layoutY="155.0" text="Прочее" />
+                              <Separator layoutX="343.0" layoutY="135.0" prefHeight="6.0" prefWidth="222.0" />
+                           </children></AnchorPane>
+                     </content>
+                  </Tab>
+              </tabs>
+            </TabPane>
+            <Separator layoutX="-7.0" layoutY="175.0" prefHeight="12.0" prefWidth="248.0" />
+            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="45.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../asset/icon.png" />
+               </image>
+            </ImageView>
+            <ComboBox fx:id="selectGroup" layoutX="45.0" layoutY="200.0" onAction="#getGroup" prefWidth="150.0" promptText="Выберите Группу " />
+            <Separator layoutX="-7.0" layoutY="235.0" prefHeight="12.0" prefWidth="248.0" />
+            <Button layoutX="45.0" layoutY="310.0" mnemonicParsing="false" onAction="#setTimetable" prefHeight="25.0" prefWidth="150.0" text="Расписание Звонков" />
+            <Separator layoutX="-7.0" layoutY="345.0" prefHeight="12.0" prefWidth="248.0" />
+            <Button layoutX="45.0" layoutY="365.0" mnemonicParsing="false" onAction="#openLinkEios" prefHeight="25.0" prefWidth="150.0" text="ЭИОС" />
+            <Separator layoutX="-7.0" layoutY="400.0" prefHeight="12.0" prefWidth="248.0" />
+            <Button layoutX="45.0" layoutY="420.0" mnemonicParsing="false" onAction="#openLinkCyberEios" prefHeight="25.0" prefWidth="150.0" text="Cyber.Sibsutis" />
+            <Button layoutX="45.0" layoutY="255.0" mnemonicParsing="false" onAction="#startNoteWindow" prefHeight="25.0" prefWidth="150.0" text="Заметки" />
+            <Separator layoutX="-7.0" layoutY="290.0" prefHeight="12.0" prefWidth="248.0" />
+            <Label fx:id="setToDay" alignment="TOP_CENTER" layoutX="45.0" layoutY="155.0" prefHeight="17.0" prefWidth="150.0" textAlignment="CENTER" />
+         </children>
+      </Pane>
+   </children>
+</GridPane>
